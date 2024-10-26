@@ -5,21 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bfd55509-8efc-4ccb-a3a1-422b17da8412" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/usecase-svc.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/detection_stream.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/face_database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/face_identification.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usecases/migrations/V1_create_tables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webserver/api_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webserver/endpoints.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webserver/extensions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utilities/constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/detection_stream.py" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/detection_stream.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/face_database.py" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/face_database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usecases/migrations/V1_create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/migrations/V1_create_tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webserver/api_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/webserver/api_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webserver/endpoints.py" beforeDir="false" afterPath="$PROJECT_DIR$/webserver/endpoints.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,28 +30,34 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;raakhal-rapolu&quot;
+  }
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
-    "url": "git@github.com:raakhal-rapolu/ai-atl-usecases.git",
+    "url": "https://github.com/raakhal-rapolu/ai-atl-usecases.git",
     "accountId": "7a8e9488-9c80-4a3b-9a18-bf1c917b4cfc"
   }
 }]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2nzAq7UxgDQtX4LIVOh8YY5IS0t" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/raakhal-rapolu/PycharmProjects/usecase-svc"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/raakhal-rapolu/PycharmProjects/usecase-svc&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

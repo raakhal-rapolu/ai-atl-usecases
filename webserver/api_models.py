@@ -8,15 +8,14 @@ multiply_api_model = api.model('Multiply two numbers', {
     'b': fields.Integer
 })
 
-# Model for adding a known face
-add_face_model = api.model('AddKnownFace', {
-    'first_name': fields.String(required=True, description="First name of the person"),
-    'last_name': fields.String(required=True, description="Last name of the person"),
-    'relationship': fields.String(required=True, description="Relationship with the patient"),
-    'image_path': fields.String(required=True, description="Path to the person's image")
-})
+# Parser for /add_known_face endpoint
+add_face_parser = reqparse.RequestParser()
+add_face_parser.add_argument('first_name', type=str, required=True, help='First name of the person')
+add_face_parser.add_argument('last_name', type=str, required=True, help='Last name of the person')
+add_face_parser.add_argument('relationship', type=str, required=True, help='Relationship with the patient')
+add_face_parser.add_argument('personal_context', type=str, required=True, help='Mutual interest')
+add_face_parser.add_argument('image', type=FileStorage, location='files', required=True, help='Image file')
 
-# Model for detecting an unknown face
-detect_face_model = api.model('DetectUnknownFace', {
-    'image_path': fields.String(required=True, description="Path to the unknown person's image")
-})
+# Parser for /detect_unknown_face endpoint
+detect_face_parser = reqparse.RequestParser()
+detect_face_parser.add_argument('image', type=FileStorage, location='files', required=True, help='Image file')

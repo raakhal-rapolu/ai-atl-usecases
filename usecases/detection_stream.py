@@ -10,7 +10,7 @@ class DetectionStream:
         self.model = YOLO('models/yolov8n.pt')  # Ensure this model file exists
         self.frame_queue = queue.Queue(maxsize=10)
         self.processed_frame = None
-        self.running = True
+        self.running = False  # Modified to start as False
         self.lock = threading.Lock()
 
         # Configure logging
@@ -48,7 +48,6 @@ class DetectionStream:
             while self.running:
                 ret, frame = cap.read()
                 if ret:
-                    # Resize frame for better performance
                     frame = cv2.resize(frame, (640, 480))
 
                     if self.frame_queue.full():
@@ -68,21 +67,14 @@ class DetectionStream:
         while self.running:
             try:
                 frame = self.frame_queue.get(timeout=1)
-
-                # Run YOLO detection
                 results = self.model(frame)
-
-                # Draw results on frame
                 annotated_frame = results[0].plot()
 
-                # Convert to smaller JPEG for faster transmission
                 encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 80]
                 _, buffer = cv2.imencode('.jpg', annotated_frame, encode_param)
 
-                # Update processed frame
                 with self.lock:
                     self.processed_frame = buffer
-
             except queue.Empty:
                 continue
             except Exception as e:
@@ -94,17 +86,21 @@ class DetectionStream:
             return self.processed_frame
 
     def start(self):
-        """Start the detection stream"""
-        self.capture_thread = threading.Thread(target=self.capture_frames)
-        self.process_thread = threading.Thread(target=self.process_frames)
-
-        self.capture_thread.start()
-        self.process_thread.start()
+        """Start the detection stream if not already running"""
+        if not self.running:
+            self.running = True
+            self.capture_thread = threading.Thread(target=self.capture_frames)
+            self.process_thread = threading.Thread(target=self.process_frames)
+            self.capture_thread.start()
+            self.process_thread.start()
+            self.logger.info("Detection stream started")
 
     def stop(self):
-        """Stop the detection stream"""
-        self.running = False
-        if hasattr(self, 'capture_thread'):
-            self.capture_thread.join()
-        if hasattr(self, 'process_thread'):
-            self.process_thread.join()
+        """Stop the detection stream if running"""
+        if self.running:
+            self.running = False
+            if hasattr(self, 'capture_thread'):
+                self.capture_thread.join()
+            if hasattr(self, 'process_thread'):
+                self.process_thread.join()
+            self.logger.info("Detection stream stopped")

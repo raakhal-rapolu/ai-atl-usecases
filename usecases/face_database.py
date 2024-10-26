@@ -2,15 +2,18 @@ import os
 import psycopg2
 import numpy as np
 from typing import List, Dict
+from utilities.constants import db_password, db_user
+import ast  # Add this import at the top of your file
+
 
 class FaceDatabase:
     def __init__(self):
         # Database connection parameters
         self.connection_params = {
-            "host": os.getenv("DB_HOST", "34.42.252.84"),
+            "host": '127.0.0.1',
             "database": os.getenv("DB_NAME", "cloud-sql-recallme"),
-            "user": os.getenv("DB_USER", "postgres"),
-            "password": os.getenv("DB_PASSWORD", "")
+            "user": db_user,
+            "password": db_password
         }
 
         # Initialize database on first run
@@ -53,21 +56,25 @@ class FaceDatabase:
                    first_name: str,
                    last_name: str,
                    relationship: str,
-                   face_embedding: np.ndarray) -> int:
+                   face_embedding: np.ndarray,
+                   notes: str) -> int:
         """Add a new person to the database"""
         with psycopg2.connect(**self.connection_params) as conn:
             with conn.cursor() as cur:
+                # Convert numpy array to list
+                embedding_list = face_embedding.tolist()
                 cur.execute("""
                     INSERT INTO people 
                         (patient_id, first_name, last_name, 
-                         relationship, face_embedding)
-                    VALUES (%s, %s, %s, %s, %s)
+                         relationship, face_embedding, notes)
+                    VALUES (%s, %s, %s, %s, %s, %s)
                     RETURNING id
                 """, (patient_id, first_name, last_name,
-                      relationship, face_embedding.tolist()))
+                      relationship, embedding_list, notes))
                 person_id = cur.fetchone()[0]
                 conn.commit()
                 return person_id
+
 
     def find_similar_face(self,
                           face_embedding: np.ndarray,
@@ -81,7 +88,8 @@ class FaceDatabase:
                         p.first_name,
                         p.last_name,
                         p.relationship,
-                        p.face_embedding
+                        p.face_embedding,
+                        p.notes
                     FROM people p
                 """)
                 rows = cur.fetchall()
@@ -91,8 +99,18 @@ class FaceDatabase:
                     first_name = row[1]
                     last_name = row[2]
                     relationship = row[3]
-                    embedding_list = row[4]
-                    db_embedding = np.array(embedding_list)
+                    embedding_str = row[4]  # This is the string representation
+                    notes = row[5]
+
+                    # Parse the string into a list of floats
+                    try:
+                        embedding_list = ast.literal_eval(embedding_str)
+                    except (SyntaxError, ValueError) as parse_error:
+                        print(f"Error parsing embedding for person ID {person_id}: {parse_error}")
+                        continue  # Skip this record if parsing fails
+
+                    db_embedding = np.array(embedding_list, dtype=float)
+
                     # Compute Euclidean distance
                     distance = np.linalg.norm(face_embedding - db_embedding)
                     if distance < threshold:
@@ -102,8 +120,10 @@ class FaceDatabase:
                             'first_name': first_name,
                             'last_name': last_name,
                             'relationship': relationship,
-                            'similarity': similarity
+                            'similarity': similarity,
+                            'personal context': notes
                         })
                 # Sort results by similarity
                 results.sort(key=lambda x: x['similarity'], reverse=True)
                 return results[:5]
+

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS people (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     relationship VARCHAR(50) NOT NULL,
-    face_embedding vector(128),  -- Adjust size based on your model’s output
+    face_embedding FLOAT8[],  -- Adjust size based on your model’s output
     last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     notes TEXT
