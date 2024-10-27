@@ -10,7 +10,7 @@ class FaceDatabase:
     def __init__(self):
         # Database connection parameters
         self.connection_params = {
-            "host": 'metal-circle-439806-j3:us-central1:cloud-sql-recallme',
+            "host": "34.42.252.84",
             "database": os.getenv("DB_NAME", "cloud-sql-recallme"),
             "user": db_user,
             "password": db_password
