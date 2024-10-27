@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfd55509-8efc-4ccb-a3a1-422b17da8412" name="Changes" comment="updated host for pg db">
+    <list default="true" id="bfd55509-8efc-4ccb-a3a1-422b17da8412" name="Changes" comment="updated Dockerfile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deploy.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,12 +143,29 @@
       <option name="project" value="LOCAL" />
       <updated>1730005273483</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updated Dockerfile">
+      <option name="closed" value="true" />
+      <created>1730006549590</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730006549591</updated>
+    </task>
+    <task id="LOCAL-00006" summary="updated Dockerfile">
+      <option name="closed" value="true" />
+      <created>1730010301285</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730010301285</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated and added the face recognised context" />
     <MESSAGE value="updated host for pg db" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated host for pg db" />
+    <MESSAGE value="updated Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated Dockerfile" />
   </component>
 </project>
