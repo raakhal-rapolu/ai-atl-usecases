@@ -5,8 +5,8 @@ FROM python:3.12-slim
 WORKDIR /app
 
 # Expose necessary ports
-EXPOSE 8080   # Flask
-EXPOSE 8050   # Streamlit
+EXPOSE 8080
+EXPOSE 8050
 
 # Install system dependencies
 RUN apt-get update && \
