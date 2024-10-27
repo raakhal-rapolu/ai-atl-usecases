@@ -4,6 +4,7 @@ FROM python:3.12-slim
 # Set the working directory
 WORKDIR /app
 
+
 # Install system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -11,14 +12,17 @@ RUN apt-get update && \
         libpq-dev \
         curl \
         cmake \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        libfontconfig1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry and add it to the PATH
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     mv /root/.local/bin/poetry /usr/local/bin/poetry
-
-RUN apt-get update && apt-get install -y libgl1-mesa-glx
-
 
 # Copy project files
 COPY . .
@@ -32,3 +36,6 @@ EXPOSE 8000
 
 # Run the application
 CMD ["poetry", "run", "python", "app.py"]
+
+
+
