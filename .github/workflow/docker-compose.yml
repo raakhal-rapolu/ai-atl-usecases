@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  your-app:
+    build: .  # Your application's Dockerfile
+    ports:
+      - "8000:8000"  # Expose your app's port
+    environment:
+      - DB_USER='postgres'
+      - DB_PASS='1Y74*0)_f0I&s|0a'
+      - DB_NAME='cloud-sql-recallme'
+      - INSTANCE_CONNECTION_NAME='metal-circle-439806-j3:us-central1:cloud-sql-recallme'
+    depends_on:
+      - cloud_sql_proxy
+    # Important: Connect to the proxy's local port
+    command: python app.py
+
+  cloud_sql_proxy:
+    image: gcr.io/cloudsql-docker/gce-proxy:latest
+    command: /cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:5432
+    # Important: Pass the instance connection name as an environment variable
+    environment:
+      - INSTANCE_CONNECTION_NAME='metal-circle-439806-j3:us-central1:cloud-sql-recallme'
+    ports:
+      - "5432:5432"  # Expose the proxy's port (optional, but can be useful for debugging)
