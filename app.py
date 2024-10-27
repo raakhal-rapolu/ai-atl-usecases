@@ -17,5 +17,5 @@ def check_status():
     return "I am here"
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8095))  # Read from PORT environment variable
+    port = int(os.environ.get('PORT', 8000))  # Read from PORT environment variable
     app.run(debug=True, port = port, host = '0.0.0.0')

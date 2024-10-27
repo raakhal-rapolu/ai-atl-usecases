@@ -17,6 +17,9 @@ RUN apt-get update && \
 RUN curl -sSL https://install.python-poetry.org | python3 - && \
     mv /root/.local/bin/poetry /usr/local/bin/poetry
 
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
+
 # Copy project files
 COPY . .
 
