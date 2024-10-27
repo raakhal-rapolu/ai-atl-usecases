@@ -1,6 +1,6 @@
 from flask import request, jsonify, Blueprint
 from flask_restx import Resource
-from webserver.api_models import multiply_api_model, add_face_parser, detect_face_parser
+from webserver.api_models import multiply_api_model, add_face_parser, detect_face_parser, live_detection_api_model
 from webserver.extensions import api
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
@@ -8,10 +8,14 @@ import base64
 import requests
 from usecases.face_database import FaceDatabase
 from usecases.face_identification import add_person_from_image
-from usecases.face_prompt_llm import generate_message_with_llm
-from usecases.detection_stream import DetectionStream
 import os
 from werkzeug.utils import secure_filename
+import cv2
+from ultralytics import YOLO
+from usecases.face_prompt_llm import generate_message_with_llm, assist_dementia_patient
+from usecases.face_database import FaceDatabase
+import face_recognition
+import numpy as np
 
 # Initialize components
 face_db = FaceDatabase()
@@ -156,3 +160,89 @@ class DetectUnknownFace(Resource):
 #         # Stop the detection stream if no frame is available
 #         detection_stream.stop()
 #         return jsonify({"error": "No frame available"}), 404
+
+@recall_namespace.route('/live_detection')
+class LiveDetection(Resource):
+    @api.expect(live_detection_api_model)
+
+    def post(self):
+        """Process a single frame from the live webcam feed"""
+        try:
+            # Parse the incoming request data
+            data = request.json
+            frame_data = data.get("frame")
+
+            if not frame_data:
+                return {"error": "No frame data provided"}, 400
+
+            # Decode the base64 frame
+            frame_bytes = base64.b64decode(frame_data)
+            np_frame = np.frombuffer(frame_bytes, np.uint8)
+            frame = cv2.imdecode(np_frame, cv2.IMREAD_COLOR)
+
+            # Run YOLO prediction for object detection
+            model = YOLO('models/yolov8n.pt')
+            results = model.predict(frame, imgsz=640)
+            result = results[0]  # Process the first result
+            model_names = model.names
+
+            # Extract detected objects
+            boxes = result.boxes
+            detected_objects = []
+            if boxes is not None and len(boxes) > 0:
+                cls_indices = boxes.cls.cpu().numpy().astype(int)
+                detected_objects = [model_names[i] for i in cls_indices]
+
+            # Filter sensitive words and prepare the context
+            filtered_objects = filter_sensitive_words(detected_objects)
+            context = {'objects': filtered_objects}
+            image_path = 'current_frame.jpg'
+            cv2.imwrite(image_path, frame)
+
+            # Check if a face is among the detected objects
+            detected_faces = 'person' in detected_objects
+            if detected_faces:
+                # Detect and encode faces
+                face_locations = face_recognition.face_locations(frame)
+                face_encodings = face_recognition.face_encodings(frame, face_locations)
+
+                if face_encodings:
+                    face_embedding = face_encodings[0]
+                    similar_faces = face_db.find_similar_face(face_embedding)
+
+                    if similar_faces:
+                        matched_face = similar_faces[0]
+                        context = {
+                            "name": f"{matched_face['first_name']} {matched_face['last_name']}",
+                            "relation": matched_face['relationship'],
+                            "personal_information": matched_face.get('notes', '')
+                        }
+                    else:
+                        context = {
+                            "name": "an unfamiliar person",
+                            "relation": "unknown",
+                            "personal_information": "No additional information available."
+                        }
+
+                    # Generate message using the context for a detected face
+                    response = generate_message_with_llm(image_path, context)
+                else:
+                    # No face encodings found
+                    context = {
+                        "name": "a person",
+                        "relation": "unknown",
+                        "personal_information": "No additional information available."
+                    }
+                    response = assist_dementia_patient(image_path, context)
+            else:
+                # Generate message for non-face frames
+                response = assist_dementia_patient(image_path, context)
+
+            return jsonify(response)
+        except Exception as e:
+            return {"error": str(e)}, 500
+
+def filter_sensitive_words(detected_objects):
+    sensitive_words = {'toilet', 'bathroom', 'weapon', 'knife', 'gun'}  # Add more words as needed
+    filtered_objects = [obj for obj in detected_objects if obj.lower() not in sensitive_words]
+    return filtered_objects

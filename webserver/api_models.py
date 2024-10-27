@@ -19,3 +19,11 @@ add_face_parser.add_argument('image', type=FileStorage, location='files', requir
 # Parser for /detect_unknown_face endpoint
 detect_face_parser = reqparse.RequestParser()
 detect_face_parser.add_argument('image', type=FileStorage, location='files', required=True, help='Image file')
+
+live_detection_api_model = api.model('LiveDetection', {
+    'frame': fields.String(
+        required=True,
+        description="Base64 encoded image frame from webcam",
+        example="iVBORw0KGgoAAAANSUhEUgAA..."
+    )
+})

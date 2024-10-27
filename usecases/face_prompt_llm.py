@@ -100,7 +100,9 @@ Few-shot Examples:
 
 New Instance:
 Given the context: {context}
-Provide a useful reminder or assistance message that helps the patient navigate their immediate environment.
+Provide a useful reminder or assistance message that helps the patient navigate their immediate environment. 
+The context may include everyday household items. Ensure that your response is appropriate, 
+avoids sensitive topics, and is focused on helping the patient navigate their surroundings.
 '''
     # Inject the context into the prompt
     context_str = json.dumps(context)
