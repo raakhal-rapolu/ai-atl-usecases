@@ -6,7 +6,7 @@ import requests
 import time
 
 # Define the Flask endpoint URL
-FLASK_ENDPOINT = "http://127.0.0.1:8000/use-case-svc/api/v1/reinforce_memory/live_detection"
+FLASK_ENDPOINT = "http://127.0.0.1:8080/use-case-svc/api/v1/reinforce_memory/live_detection"
 
 st.title("Live Detection Stream")
 st.text("Captures frames from the webcam every second, sends them to the server, and displays the response.")
