@@ -4,6 +4,9 @@ FROM python:3.12-slim
 # Set the working directory
 WORKDIR /app
 
+# Expose necessary ports
+EXPOSE 8080   # Flask
+EXPOSE 8050   # Streamlit
 
 # Install system dependencies
 RUN apt-get update && \
@@ -31,11 +34,8 @@ COPY . .
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
 
-# Expose the port
-EXPOSE 8000
+# Set up Taskipy for running multiple tasks
+RUN poetry run pip install taskipy
 
-# Run the application
-CMD ["poetry", "run", "python", "app.py"]
-
-
-
+# Run both Flask and Streamlit apps concurrently using Taskipy
+CMD ["poetry", "run", "task", "run-all"]

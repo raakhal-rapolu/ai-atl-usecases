@@ -16,6 +16,5 @@ app.register_blueprint(endpoints.blueprint)
 def check_status():
     return "I am here"
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8000))  # Read from PORT environment variable
-    app.run(debug=True, port = port, host = '0.0.0.0')
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)

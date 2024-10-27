@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bfd55509-8efc-4ccb-a3a1-422b17da8412" name="Changes" comment="updated Dockerfile">
+    <list default="true" id="bfd55509-8efc-4ccb-a3a1-422b17da8412" name="Changes" comment="updated live stream">
+      <change afterPath="$PROJECT_DIR$/streamlit_app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usecases/face_prompt_llm.py" beforeDir="false" afterPath="$PROJECT_DIR$/usecases/face_prompt_llm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webserver/api_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/webserver/api_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webserver/endpoints.py" beforeDir="false" afterPath="$PROJECT_DIR$/webserver/endpoints.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,13 +203,22 @@
       <option name="project" value="LOCAL" />
       <updated>1730012444024</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="updated live stream">
+      <option name="closed" value="true" />
+      <created>1730017836191</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1730017836191</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="updated and added the face recognised context" />
     <MESSAGE value="updated host for pg db" />
     <MESSAGE value="updated Dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated Dockerfile" />
+    <MESSAGE value="updated live stream" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated live stream" />
   </component>
 </project>

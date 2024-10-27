@@ -25,10 +25,13 @@ load-dotenv = "^0.1.0"
 cloud-sql-python-connector = {extras = ["pg8000"], version = "^1.13.0"}
 torch = "^2.5.0"
 yolov5 = "^7.0.13"
+streamlit = "^1.39.0"
 
 
 [tool.taskipy.tasks]
 usecase-svc-backend = { cmd = 'python app.py', help = 'Runs the application' }
+usecase-svc-streamlit = { cmd = 'streamlit run streamlit_app.py', help = 'Runs the Streamlit application' }
+run-all = { cmd = "task usecase-svc-backend & task usecase-svc-streamlit", help = "Runs Flask and Streamlit apps concurrently" }
 
 
 
