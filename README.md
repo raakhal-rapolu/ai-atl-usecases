@@ -1,4 +1,3 @@
-```markdown
 # ReCallMe Backend Service
 
 This repository hosts the backend for the ReCallMe project, a Flask-based API providing cognitive assistance features. The system is designed to help dementia patients by integrating face identification, task management, and communication functionalities through API endpoints. This backend can be extended with LLM (Language Model) capabilities for enhanced interactions.
